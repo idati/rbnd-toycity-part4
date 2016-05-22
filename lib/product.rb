@@ -1,6 +1,7 @@
 require_relative 'udacidata'
 
 class Product < Udacidata
+  @@file = File.dirname(__FILE__) + "/../data/data.csv"
   attr_reader :id, :price, :brand, :name
 
   def initialize(opts={})
@@ -25,15 +26,16 @@ class Product < Udacidata
     # If it exists, increment and use this value
     # Otherwise, use 0 as starting ID number
     def get_last_id
-      file = File.dirname(__FILE__) + "/../data/data.csv"
-      last_id = File.exist?(file) ? CSV.read(file).last[0].to_i + 1 : nil
+      #file = File.dirname(__FILE__) + "/../data/data.csv"
+      last_id = File.exist?(@@file) ? CSV.read(@@file).last[0].to_i + 1 : nil
       @@count_class_instances = last_id || 0
     end
 
     def write_to_file(id,brand,product,price)
-        @data_path = File.dirname(__FILE__) +"/../data/data.csv"
-        CSV.open(@data_path, "a+") do |csv|
+        #@data_path = File.dirname(__FILE__) +"/../data/data.csv"
+        CSV.open(@@file, "a+") do |csv|
         csv << [id, brand, product, price]
+        @@Product << [id, brand, product, price]
         end
       end
 
