@@ -4,4 +4,7 @@ require 'csv'
 
 class Udacidata
   # Your code goes here!
+  def self.create(option={})
+  	self.new(option)
+  end
 end

@@ -15,6 +15,8 @@ class Product < Udacidata
     @brand = opts[:brand]
     @name = opts[:name]
     @price = opts[:price]
+    #puts @name
+    write_to_file(@id,@brand,@name,@price)
   end
 
   private
@@ -27,6 +29,13 @@ class Product < Udacidata
       last_id = File.exist?(file) ? CSV.read(file).last[0].to_i + 1 : nil
       @@count_class_instances = last_id || 0
     end
+
+    def write_to_file(id,brand,product,price)
+        @data_path = File.dirname(__FILE__) +"/../data/data.csv"
+        CSV.open(@data_path, "a+") do |csv|
+        csv << [id, brand, product, price]
+        end
+      end
 
     def auto_increment
       @@count_class_instances += 1
