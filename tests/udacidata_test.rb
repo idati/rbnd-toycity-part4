@@ -14,20 +14,26 @@ class TestUdacidata < MiniTest::Test
     #CSV.foreach(@data_path) do |row|
     #  print row #first row would be ["animal", "count", "price"] - etc.
     #end
+    #puts "Product.all #{Product.all.length}"
+    #puts "CSV #{CSV.read(@data_path).length-1}"
   end
 
   def test_create_method_adds_to_database
     before = CSV.read(@data_path).length
     #puts before
+    #puts before
     5.times do
       Product.create(brand: "WalterToys", name: "Sticky Notes", price: 34.00)
     end
+    #puts Product.all.length
     after = CSV.read(@data_path).length
+    #puts "different method #{after}"
     assert(after == before + 5)
   end
 
    def test_create_method_returns_product_object
       product = Product.create(brand: "ColtToys", name: "Orchid Plant", price: 2.00)
+
       assert_instance_of(Product, product)
    end
   #
@@ -35,19 +41,21 @@ class TestUdacidata < MiniTest::Test
      array_of_products = Product.all
      assert_kind_of(Array, array_of_products)
    end
+  
+   def test_all_method_returns_array_of_products
+     array_of_products = Product.all
+     array_of_products.each do |product|
+       assert_instance_of(Product, product)
+     end
+   end
   #
-  # def test_all_method_returns_array_of_products
-  #   array_of_products = Product.all
-  #   array_of_products.each do |product|
-  #     assert_instance_of(Product, product)
-  #   end
-  # end
-  #
-  # def test_all_method_returns_all_products_in_database
-  #   expected = CSV.read(@data_path).drop(1).length
-  #   actual = Product.all.length
-  #   assert_equal(expected, actual)
-  # end
+   def test_all_method_returns_all_products_in_database
+     expected = CSV.read(@data_path).drop(1).length
+     #puts expected
+     actual = Product.all.length
+     #puts actual
+     assert_equal(expected, actual)
+   end
   #
   # def test_first_method_returns_product_object
   #   product = Product.first

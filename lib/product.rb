@@ -2,10 +2,11 @@ require_relative 'udacidata'
 
 class Product < Udacidata
   @@file = File.dirname(__FILE__) + "/../data/data.csv"
+  puts File.dirname(__FILE__)+ "/../data/data.csv"
+  #@@file = "data/data.csv"
   attr_reader :id, :price, :brand, :name
 
   def initialize(opts={})
-
     # Get last ID from the database if ID exists
     get_last_id
     # Set the ID if it was passed in, otherwise use last existing ID
@@ -35,9 +36,16 @@ class Product < Udacidata
         #@data_path = File.dirname(__FILE__) +"/../data/data.csv"
         CSV.open(@@file, "a+") do |csv|
         csv << [id, brand, product, price]
-        @@Product << [id, brand, product, price]
+        #@@Product << [id, brand, product, price]
         end
+        #@@Product << self
       end
+   # def file_to_array
+   #     puts CSV.read(@@file).drop(1).length
+   #     #CSV.foreach(@@file) do |row|
+   #     #@@Product << row #first row would be ["animal", "count", "price"] - etc.
+   #     #end
+   # end
 
     def auto_increment
       @@count_class_instances += 1
