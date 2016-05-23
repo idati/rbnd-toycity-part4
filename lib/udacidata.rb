@@ -24,4 +24,8 @@ class Udacidata
   def self.first(opt={})
     opt=={} ? @@Product[0] : @@Product[00..opt-1]
   end
+  def self.last(opt={})
+    n=@@Product.length-1
+    opt=={} ? @@Product[n]: @@Product[(n-opt+1)..n]
+  end
 end
