@@ -21,4 +21,7 @@ class Udacidata
   	@@Product=[]
     #puts @@Product.length
   end
+  def self.first(opt={})
+    opt=={} ? @@Product[0] : @@Product[00..opt-1]
+  end
 end
