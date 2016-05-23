@@ -55,5 +55,14 @@ class Udacidata
     @@Product.each{|item| (item.name == opt[:name]) ? result<<item : ""} if opt[:name]
     result
   end
+  def update(opt={})
+    Product.destroy(self.id)
+    Product.create(id: self.id,brand: (opt[:brand] ? opt[:brand] : self.brand),name: (opt[:name] ? opt[:name] : self.name),price: (opt[:price] ? opt[:price] : self.price))
+    #@@Product.each{|item| item.id==self.id ? (puts item.id) : ""} if opt[:brand]
+    #@@Product.each{|item| item.id==self.id ? item.name = opt[:name] : ""} if opt[:name]
+    #@@Product.each{|item| item.id==self.id ? (item.price = opt[:price]) : ""} if opt[:price]
+
+    #update(opt)
+  end
 
 end
