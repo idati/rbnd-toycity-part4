@@ -49,5 +49,11 @@ class Udacidata
     @@result=(before-@@Product)
     @@result[0]
   end
+  def self.where(opt={})
+    result=[]
+    @@Product.each{|item| (item.brand == opt[:brand]) ? result<<item : ""} if opt[:brand]
+    @@Product.each{|item| (item.name == opt[:name]) ? result<<item : ""} if opt[:name]
+    result
+  end
 
 end
