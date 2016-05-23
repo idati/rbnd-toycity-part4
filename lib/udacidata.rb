@@ -34,4 +34,7 @@ class Udacidata
   def self.find_by_brand(brand)
     @@Product.detect{|item| item.brand == brand}
   end
+  def self.find_by_name(name)
+    @@Product.detect{|item| item.name == name}
+  end
 end
