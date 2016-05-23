@@ -2,7 +2,7 @@ require_relative 'udacidata'
 
 class Product < Udacidata
   @@file = File.dirname(__FILE__) + "/../data/data.csv"
-  puts File.dirname(__FILE__)+ "/../data/data.csv"
+  #puts File.dirname(__FILE__)+ "/../data/data.csv"
   #@@file = "data/data.csv"
   attr_reader :id, :price, :brand, :name
 
