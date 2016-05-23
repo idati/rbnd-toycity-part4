@@ -32,6 +32,13 @@ class Product < Udacidata
       @@count_class_instances = last_id || 0
     end
 
+
+   # def file_to_array
+   #     puts CSV.read(@@file).drop(1).length
+   #     #CSV.foreach(@@file) do |row|
+   #     #@@Product << row #first row would be ["animal", "count", "price"] - etc.
+   #     #end
+   # end
     def write_to_file(id,brand,product,price)
         #@data_path = File.dirname(__FILE__) +"/../data/data.csv"
         CSV.open(@@file, "a+") do |csv|
@@ -40,15 +47,23 @@ class Product < Udacidata
         end
         #@@Product << self
       end
-   # def file_to_array
-   #     puts CSV.read(@@file).drop(1).length
-   #     #CSV.foreach(@@file) do |row|
-   #     #@@Product << row #first row would be ["animal", "count", "price"] - etc.
-   #     #end
-   # end
 
     def auto_increment
       @@count_class_instances += 1
     end
+
+    def self.update1
+      CSV.open(@@file, "wb") do |csv|
+        csv << ["id", "brand", "product", "price"]
+      end
+    end
+    def self.update2(id,brand,product,price)
+      CSV.open(@@file, "a+") do |csv|
+        csv << [id, brand, product, price]
+        #@@Product << [id, brand, product, price]
+      end
+    end
+
+
 
 end

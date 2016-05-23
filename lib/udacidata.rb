@@ -3,8 +3,9 @@ require_relative 'errors'
 require 'csv'
 
 class Udacidata
+  @@data_path = File.dirname(__FILE__) +"/../data/data.csv"
 	@@Product=[]
-	@@check=false
+	@@result=[]
   # Your code goes here!
   def self.create(option={})
   	#puts option[:check2]
@@ -37,4 +38,16 @@ class Udacidata
   def self.find_by_name(name)
     @@Product.detect{|item| item.name == name}
   end
+
+  def self.destroy(id)
+    before=@@Product.clone
+    @@Product.delete_if{|item| item.id == id}
+
+    update1
+    @@Product.each{|pd| update2(pd.id, pd.brand, pd.name, pd.price)}
+    #end
+    @@result=(before-@@Product)
+    @@result[0]
+  end
+
 end
