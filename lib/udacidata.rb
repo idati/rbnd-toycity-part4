@@ -4,7 +4,8 @@ require 'csv'
 
 class Udacidata
   @@data_path = File.dirname(__FILE__) +"/../data/data.csv"
-	@@Product=[]
+	create_finder_methods("name","brand","price")
+  @@Product=[]
 	@@result=[]
   # Your code goes here!
   def self.create(option={})
@@ -30,17 +31,18 @@ class Udacidata
     opt=={} ? @@Product[n]: @@Product[(n-opt+1)..n]
   end
   def self.find(id)
-    @@Product.detect{|item| item.id == id}
+    @@Product.detect{|item| item.id == id} ?  @@Product.detect{|item| item.id == id} : (raise UdacidataErrors::ProductNotFoundError, "id: #{id} not found")
   end
-  def self.find_by_brand(brand)
-    @@Product.detect{|item| item.brand == brand}
-  end
-  def self.find_by_name(name)
-    @@Product.detect{|item| item.name == name}
-  end
+  #def self.find_by_brand(brand)
+  #  @@Product.detect{|item| item.brand == brand}
+  #end
+  #def self.find_by_name(name)
+  #  @@Product.detect{|item| item.name == name}
+  #end
 
   def self.destroy(id)
-    before=@@Product.clone
+    @@Product.find{|item| item.id==id} ? before=@@Product.clone : (raise UdacidataErrors::ProductNotFoundError, "id: #{id} not found")
+    
     @@Product.delete_if{|item| item.id == id}
 
     update1
