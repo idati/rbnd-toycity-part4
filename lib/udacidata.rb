@@ -28,4 +28,7 @@ class Udacidata
     n=@@Product.length-1
     opt=={} ? @@Product[n]: @@Product[(n-opt+1)..n]
   end
+  def self.find(id)
+    @@Product.detect{|item| item.id == id}
+  end
 end
