@@ -9,19 +9,14 @@ class Udacidata
 	@@result=[]
   # Your code goes here!
   def self.create(option={})
-  	#puts option[:check2]
-  	#(option[:check2])=="true" ? @@Product=[] : @@Product << self.new(option) 
   	@@Product << self.new(option)
   	@@Product[@@Product.length-1]
   end
   def self.all
-  	#puts @@Product.length
   	@@Product
   end
   def self.clean
-    #puts @@Product.length
   	@@Product=[]
-    #puts @@Product.length
   end
   def self.first(opt={})
     opt=={} ? @@Product[0] : @@Product[00..opt-1]
@@ -33,12 +28,6 @@ class Udacidata
   def self.find(id)
     @@Product.detect{|item| item.id == id} ?  @@Product.detect{|item| item.id == id} : (raise UdacidataErrors::ProductNotFoundError, "id: #{id} not found")
   end
-  #def self.find_by_brand(brand)
-  #  @@Product.detect{|item| item.brand == brand}
-  #end
-  #def self.find_by_name(name)
-  #  @@Product.detect{|item| item.name == name}
-  #end
 
   def self.destroy(id)
     @@Product.find{|item| item.id==id} ? before=@@Product.clone : (raise UdacidataErrors::ProductNotFoundError, "id: #{id} not found")
@@ -60,11 +49,6 @@ class Udacidata
   def update(opt={})
     Product.destroy(self.id)
     Product.create(id: self.id,brand: (opt[:brand] ? opt[:brand] : self.brand),name: (opt[:name] ? opt[:name] : self.name),price: (opt[:price] ? opt[:price] : self.price))
-    #@@Product.each{|item| item.id==self.id ? (puts item.id) : ""} if opt[:brand]
-    #@@Product.each{|item| item.id==self.id ? item.name = opt[:name] : ""} if opt[:name]
-    #@@Product.each{|item| item.id==self.id ? (item.price = opt[:price]) : ""} if opt[:price]
-
-    #update(opt)
   end
 
 end

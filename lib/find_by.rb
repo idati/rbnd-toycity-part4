@@ -5,9 +5,9 @@ class Module
         attributes.each do |attribute|
       self.class_eval("
         def self.find_by_#{attribute}(target_value)
-          self.all.each do |product|
-            if product.#{attribute} == target_value
-              return product
+          self.all.each do |item|
+            if item.#{attribute} == target_value
+              return item
             end
           end
         end
