@@ -18,19 +18,25 @@ class Udacidata
   def self.clean
   	@@Product=[]
   end
-  def self.first(opt={})
-    opt=={} ? @@Product[0] : @@Product[00..opt-1]
+
+  def self.take_items(from, n=nil)
+      n ? all.send(from, n) : all.public_send(from)
   end
-  def self.last(opt={})
-    n=@@Product.length-1
-    opt=={} ? @@Product[n]: @@Product[(n-opt+1)..n]
+
+  def self.first(n=nil)
+      self.take_items(:first, n)
   end
+
+  def self.last(n=nil)
+     self.take_items(:last, n)
+  end
+
   def self.find(id)
-    @@Product.detect{|item| item.id == id} ?  @@Product.detect{|item| item.id == id} : (raise UdacidataErrors::ProductNotFoundError, "id: #{id} not found")
+    Product.all.detect{|item| item.id == id} ?  Product.all.detect{|item| item.id == id} : (raise UdacidataErrors::ProductNotFoundError, "id: #{id} not found")
   end
 
   def self.destroy(id)
-    @@Product.find{|item| item.id==id} ? before=@@Product.clone : (raise UdacidataErrors::ProductNotFoundError, "id: #{id} not found")
+    self.find(id) ? before=Product.all.clone : (raise UdacidataErrors::ProductNotFoundError, "id: #{id} not found")
     
     @@Product.delete_if{|item| item.id == id}
 
